@@ -1,0 +1,13 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shapeIntoMongooseOnjectId = exports.MORGAN_FORMAT = exports.AUTH_TIMER = void 0;
+exports.AUTH_TIMER = 24;
+exports.MORGAN_FORMAT = `:method :url :response-time [:status ] \n`;
+const mongoose_1 = __importDefault(require("mongoose"));
+const shapeIntoMongooseOnjectId = (target) => {
+    return typeof target === 'string' ? new mongoose_1.default.Types.ObjectId(target) : target;
+};
+exports.shapeIntoMongooseOnjectId = shapeIntoMongooseOnjectId;
