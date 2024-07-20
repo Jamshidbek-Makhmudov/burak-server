@@ -1,15 +1,15 @@
 
+import cookieParser from 'cookie-parser';
 import cors from "cors";
 import express from 'express';
+import morgan from "morgan";
 import path from "path";
+import { MORGAN_FORMAT } from './libs/config';
 import router from "./router";
 import routerAdmin from "./router-admin";
-import morgan from "morgan";
-import cookieParser from 'cookie-parser';
-import { MORGAN_FORMAT } from './libs/config';
 
-import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';
+import session from 'express-session';
 import { T } from './libs/types/common';
 
 
@@ -23,6 +23,8 @@ const store = new MongoDBStore({
 /**1-ENTRANCE */
 const app = express();
 console.log("__dirname:", __dirname);
+
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({extended:true}));
@@ -58,6 +60,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
 /**4-ROUTERS */
+app.get('/admin/check-health', (req, res) => {
+  res.sendStatus(200);
+});
 app.use("/admin", routerAdmin);// EJS
 app.use('/', router); //Mideleware Design Pattern
 

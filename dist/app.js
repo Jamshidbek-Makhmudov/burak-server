@@ -3,16 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
+const morgan_1 = __importDefault(require("morgan"));
 const path_1 = __importDefault(require("path"));
+const config_1 = require("./libs/config");
 const router_1 = __importDefault(require("./router"));
 const router_admin_1 = __importDefault(require("./router-admin"));
-const morgan_1 = __importDefault(require("morgan"));
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const config_1 = require("./libs/config");
-const express_session_1 = __importDefault(require("express-session"));
 const connect_mongodb_session_1 = __importDefault(require("connect-mongodb-session"));
+const express_session_1 = __importDefault(require("express-session"));
 const MongoDBStore = (0, connect_mongodb_session_1.default)(express_session_1.default);
 const store = new MongoDBStore({
     uri: String(process.env.MONGO_URL),
@@ -47,6 +47,9 @@ app.use(function (req, res, next) {
 app.set('views', path_1.default.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 /**4-ROUTERS */
+app.get('/admin/check-health', (req, res) => {
+    res.sendStatus(200);
+});
 app.use("/admin", router_admin_1.default); // EJS
 app.use('/', router_1.default); //Mideleware Design Pattern
 exports.default = app;

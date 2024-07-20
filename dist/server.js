@@ -11,7 +11,7 @@ mongoose_1.default
     .connect(process.env.MONGO_URL, {})
     .then((data) => {
     console.log("Mongodb connection succed");
-    const PORT = process.env.PORT ?? 3003;
+    const PORT = process.env.PORT ?? 3000;
     app_1.default.listen(PORT, function () {
         console.log(`The server is running successfully on port: ${PORT}`);
         console.log(`Admin project on http://localhost:${PORT}/admin \n`);
